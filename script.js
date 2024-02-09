@@ -20,6 +20,11 @@ function displayBook(libraryArr) {
     const titleEl = document.createElement("p");
     const authorEl = document.createElement("p");
     const pagesEl = document.createElement("p");
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete");
+    deleteButton.textContent = "X";
+
+    bookEl.setAttribute("data-book-index", lastBookIndex);
 
     const titleNode = document.createTextNode(libraryArr[lastBookIndex].title);
     const authorNode = document.createTextNode(
@@ -34,8 +39,15 @@ function displayBook(libraryArr) {
     bookEl.appendChild(titleEl);
     bookEl.appendChild(authorEl);
     bookEl.appendChild(pagesEl);
+    bookEl.appendChild(deleteButton);
 
     librarySelector.appendChild(bookEl);
+    deleteButton.addEventListener("click", (e) => {
+        const bookElement = e.target.closest(".book");
+        const bookIndex = bookElement.getAttribute("data-book-index");
+        libraryArr.splice(bookIndex, 1);
+        bookElement.remove();
+    });
 }
 
 const bookForm = document.querySelector(".add-book");
