@@ -5,16 +5,38 @@ function Book(title, author, pages) {
     this.author = author;
     this.pages = pages;
 }
+
 function addBookToLibrary(title, author, pages) {
     library.push(new Book(title, author, pages));
-    console.log(library);
+    displayBook(library);
 }
 
-const librarySelector = document.querySelector(".library");
-const titleEl = document.createElement("h1");
-const bookEl = document.createElement("div");
-const titleNode = document.createTextNode("this is a title");
-librarySelector.appendChild(titleNode);
+function displayBook(libraryArr) {
+    lastBookIndex = libraryArr.length - 1;
+
+    const librarySelector = document.querySelector(".library");
+    const bookEl = document.createElement("div");
+    bookEl.classList.add("book");
+    const titleEl = document.createElement("p");
+    const authorEl = document.createElement("p");
+    const pagesEl = document.createElement("p");
+
+    const titleNode = document.createTextNode(libraryArr[lastBookIndex].title);
+    const authorNode = document.createTextNode(
+        libraryArr[lastBookIndex].author
+    );
+    const pagesNode = document.createTextNode(libraryArr[lastBookIndex].pages);
+
+    titleEl.appendChild(titleNode);
+    authorEl.appendChild(authorNode);
+    pagesEl.appendChild(pagesNode);
+
+    bookEl.appendChild(titleEl);
+    bookEl.appendChild(authorEl);
+    bookEl.appendChild(pagesEl);
+
+    librarySelector.appendChild(bookEl);
+}
 
 const bookForm = document.querySelector(".add-book");
 bookForm.addEventListener("submit", (e) => {
