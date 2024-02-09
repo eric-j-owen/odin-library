@@ -5,12 +5,26 @@ function Book(title, author, pages) {
     this.author = author;
     this.pages = pages;
 }
-function addBookToLibrary() {
-    let title = prompt("Enter the title of the book: ");
-    let author = prompt("Enter the author of the book: ");
-    let pages = prompt("Enter the number of pages in the book: ");
+function addBookToLibrary(title, author, pages) {
     library.push(new Book(title, author, pages));
+    console.log(library);
 }
 
-addBookToLibrary();
-console.log(library);
+const librarySelector = document.querySelector(".library");
+const titleEl = document.createElement("h1");
+const bookEl = document.createElement("div");
+const titleNode = document.createTextNode("this is a title");
+librarySelector.appendChild(titleNode);
+
+const bookForm = document.querySelector(".add-book");
+bookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = document.querySelector("#title").value;
+    const author = document.querySelector("#author").value;
+    const pages = document.querySelector("#pages").value;
+    addBookToLibrary(title, author, pages);
+
+    document.querySelector("#title").value = "";
+    document.querySelector("#author").value = "";
+    document.querySelector("#pages").value = "";
+});
